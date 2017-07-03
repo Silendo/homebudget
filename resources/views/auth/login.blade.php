@@ -58,6 +58,12 @@
                                     Nie pamiętasz hasła?
                                 </a>
                             </div>
+                            <div class="col-md-8 col-md-offset-4">
+                            	Zaloguj się przez
+                            	<a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+							| 
+								<a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fa fa-google"></i> Google</a>
+							</div>	
                         </div>
                     </form>
                 </div>
