@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Task;
 use App\Budget;
 use App\Category;
+use App\Notifications\ResetPasswordNotification as ResetPasswordNotification; 
 
 class User extends Authenticatable {
 	use Notifiable;
@@ -31,12 +32,28 @@ class User extends Authenticatable {
 		return $this -> hasMany('App\Task');
 	}
 
+	/**
+	 * Get all budgets defined by the user.
+	 */
 	public function budgets() {
 		return $this -> hasMany('App\Budget');
 	}
 
+	/**
+	 * Get all categories defined by the user.
+	 */
 	public function categories() {
 		return $this -> hasMany('App\Category');
 	}
 
+	/**
+	 * Send the password reset notification.
+ 	 *
+ 	 * @param  string  $token
+ 	 * @return void
+ 	*/
+	public function sendPasswordResetNotification($token)
+	{
+    	$this->notify(new ResetPasswordNotification($token));
+	}
 }

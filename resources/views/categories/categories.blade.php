@@ -1,4 +1,4 @@
-<table id="{{$type}}-table" class="table table-hover">
+<table id="{{$type}}_table" class="table table-hover">
 	<thead>
 		<th>Kategoria</th><th>Domyślna kwota</th><th></th>
 	</thead>
@@ -21,9 +21,13 @@
 	</tbody>
 </table>
 <div id="{{$type}}_errors"></div>
-<form id="{{$type}}_form" class="add_category_form" data-type="{{$type}}" action="{{ url('category') }}" method="POST" class="form-horizontal">
+<form id="add_{{$type}}_form" class="add_category_form" data-type="{{$type}}" action="{{ url('category') }}" method="POST" class="form-horizontal">
 	{{ csrf_field() }}
-	<input type="hidden" name="type" value="{{$type}}"/>
+	@if ($type)
+		<input type="hidden" name="type" value="1"/>
+	@else
+		<input type="hidden" name="type" value="0"/>
+	@endif
 	<input type="hidden" name="user_id" value="{{Auth::id()}}"/>
 	<div class="col-sm-5">
 		<input class="category_name form-control" type="text" placeholder="New category" name="name"/>

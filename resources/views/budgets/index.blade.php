@@ -2,35 +2,58 @@
 
 @section('content')
 <div class="container">
-	<h2 id="budget_title" class="text-center">Budżet dla <span data-id="{{$budget->id}}" data-date="{{$date}}" data-datetext="{{$budget->date}}" class="edit_budget">{{$budget->date}}</span></h2>
-	<div class="row">
-		<div class="col-sm-offset-1 col-sm-5">
-			<h3>Przychody</h3>
-			@include('budgets/cashflows', ['type'=>'revenue' ,'cashflows'=>$revenues, 'categories'=>$revenues_categories, 'errors' => $errors->revenues_errors])
-		</div>
-		<div class="col-sm-5">
-			<h3>Wydatki</h3>
-			@include('budgets/cashflows', ['type'=>'expense' , 'cashflows'=>$expenses, 'categories'=>$expenses_categories, 'errors' => $errors->expenses_errors])
-		</div>
+	<div class="col-sm-offset-2 col-sm-3">
+		<h2>Mój profil</h2>
+		<img src="http://www.gravatar.com/avatar/<?php echo md5($user->email) ?>" class="img-circle" style="display:block;margin-bottom:20px;" height="80px" width="80px"/>
+		<p>
+			<a href="mailto:{{$user->email}}">{{$user->name}}</a>
+		</p>
+		<p class="text-muted">
+			(od {{$user->created_at->format('d F Y')}})
+		</p>
+		<h2>Kategorie</h2>
+		<a href="{{route('categories')}}">Zarządzaj kategoriami</a>
+		<h2>Notatki</h2>
+		<a href="{{route('tasks')}}">Zarządzaj notatkami</a>
 	</div>
-	<div class="row">
-		<div class="col-sm-offset-1 col-sm-10">
-			<h3>Podsumowanie</h3>
-			<p id="revenues_summary">
-				Przychody: <span class="summary_number">{{$revenues_sum}}</span>
-			</p>
-			<p id="expenses_summary">
-				Wydatki: <span class="summary_number">{{$expenses_sum}}</span>
-			</p>
-			<p id="balance">
-				Saldo: <span class="summary_number">{{$balance}}</span>
-			</p>
+	<div class="col-sm-5">
+		<h2>Budżety</h2>
+		<!-- Display Validation Errors -->
+		@include('common.errors')
+		<table id="budgets_table" class="table table-hover">
+			<thead>
+				<th>Miesiąc</th><th></th>
+			</thead>
+			<tbody>
+				@foreach ($budgets as $budget)
+				<tr id="delete_form_{{$budget->id}}">
+					<td><a href="{{route('budget',['id'=>$budget->id])}}">{{$budget->date}}</a></td>
+					<td>
+					<form class="delete_form" data-id="{{ $budget->id }}" action="{{url('budget/' . $budget->id)}}" method="POST">
+						{{ csrf_field() }}
+						{{ method_field('DELETE') }}
+						<button type="submit"  class="btn btn-xs btn-danger">
+							<i class="fa fa-times"></i>
+						</button>
+					</form></td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+		<div class="text-center">
+			{{$budgets->links()}}
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-offset-1 col-sm-10">
-			<a id="back_to" href="{{route('user')}}"><< Wróć do profilu</a>
-		</div>
+		<form id="add_form" action="{{ url('budget') }}" method="POST" class="form-horizontal">
+			{{ csrf_field() }}
+			<div class="col-sm-6">
+				<input type="month" name="date" value="{{$now}}" placeholder="Add new monthly budget" id="budget-date" class="form-control" value="{{ old('budget') }}">
+			</div>
+			<div class="col-sm-6">
+				<button type="submit" class="btn btn-default">
+					<i class="fa fa-btn fa-plus"></i>Dodaj budżet
+				</button>
+			</div>
+		</form>
 	</div>
 </div>
 @endsection

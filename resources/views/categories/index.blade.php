@@ -14,17 +14,17 @@
 		<div class="col-sm-offset-1 col-sm-10">
 			<div class="row">
 				<div class="col-sm-6">
-					@include("categories/categories", ['type'=>1,'categories'=>$revenues, 'errors'=>$errors->revenues_errors])
+					@include("categories/categories", ['type'=>'revenue','categories'=>$revenues, 'errors'=>$errors->revenues_errors])
 				</div>
 				<div class="col-sm-6">
-					@include("categories/categories", ['type'=>0, 'categories'=>$expenses, 'errors'=>$errors->expenses_errors])
+					@include("categories/categories", ['type'=>'expense', 'categories'=>$expenses, 'errors'=>$errors->expenses_errors])
 				</div>
 				</form>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
-				<a id="back_to" href="{{route('user')}}"><< Wróć do profilu</a>
+				<a id="back_to" href="{{route('dashboard')}}"><< Wróć do Panelu</a>
 			</div>
 		</div>
 	</div>

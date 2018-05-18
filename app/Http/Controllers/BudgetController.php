@@ -28,6 +28,17 @@ class BudgetController extends Controller {
 	}
 
 	/**
+	 * Display user's dashboard.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
+		$user = Auth::user();
+		$budgets = $this -> budgetRepository -> getAll($user);
+		return view('budgets.index', ['user' => $user, 'budgets' => $budgets, 'now' => Carbon::now() -> format('Y-m')]);
+	}
+
+	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
@@ -39,6 +50,13 @@ class BudgetController extends Controller {
 		return redirect('/budget/' . $budget -> id);
 	}
 
+	/**
+	 * Update a resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Budget $budget
+	 * @return \Illuminate\Http\Response
+	 */
 	public function update(Request $request, Budget $budget) {
                 $this -> authorize('update', $budget);
 		$budget -> date = $request -> input('date');
@@ -64,7 +82,7 @@ class BudgetController extends Controller {
 		$revenuesCategories = $this -> categoryRepository -> getRevenuesCategories($user);
 		$expensesCategories = $this -> categoryRepository -> getExpensesCategories($user);
 		$balance = round($sumOfRevenues - $sumOfExpenses,2);
-		return view('budgets.index', ['budget' => $budget, 'date' => $budget -> getOriginal('date'), 'revenues_categories' => $revenuesCategories, 'expenses_categories' => $expensesCategories, 'revenues' => $revenues, 'expenses' => $expenses, 'revenues_sum' => $sumOfRevenues, 'expenses_sum' => $sumOfExpenses, 'balance' => $balance]);
+		return view('budgets.budget', ['budget' => $budget, 'date' => $budget -> getOriginal('date'), 'revenues_categories' => $revenuesCategories, 'expenses_categories' => $expensesCategories, 'revenues' => $revenues, 'expenses' => $expenses, 'revenues_sum' => $sumOfRevenues, 'expenses_sum' => $sumOfExpenses, 'balance' => $balance]);
 	}
 
 	/**

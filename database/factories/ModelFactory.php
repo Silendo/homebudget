@@ -20,5 +20,33 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'provider' => '',
+        'provider_id' => ''
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Budget::class, function (Faker\Generator $faker) {
+
+    return [
+    	'date' => '2018-04'
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Category::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->word,
+        'default' => $faker->randomDigit
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Cashflow::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->word,
+        'amount' => $faker->randomDigit
     ];
 });

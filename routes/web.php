@@ -21,8 +21,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/home', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
 
-Route::get('/user', 'UserController@index') -> name('user');
-
+Route::get('/dashboard', 'BudgetController@index') -> name('dashboard');
 Route::post('/budget', 'BudgetController@store');
 Route::post('/budget/update/{budget}', 'BudgetController@update');
 Route::get('/budget/{budget}', 'BudgetController@show') -> name('budget');

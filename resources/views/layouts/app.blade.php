@@ -213,10 +213,10 @@
 					dataType : 'json',
 					success : function(json) {
 						delete_form = '<form id="delete_category_' + json.id + '" class="delete_category" data-id="' + json.id + '" data-type="' + type + '" data-name="' + json.name + '" action="/category/' + json.id + '" method="POST">' + '<input type="hidden" name="_method" value="DELETE">' + '<button type="submit" id="delete-category-' + json.id + '" class="delete_category btn btn-xs btn-danger"><i class="fa fa-times"></i></button>' + '</form>';
-						$('#' + type + '-table tbody').append('<tr id="category_' + json.id + '" data-id=' + json.id + ' data-type=' + type + ' data-default=' + json.default + ' data-name=' + json.name + '>' + '<td class="edit_category" data-id="' + json.id + '">' + json.name + '</td>' + '<td class="edit_category" data-id="' + json.id + '">' + json.default + '</td>' + '<td>' + delete_form + '</td></tr>');
+						$('#' + type + '_table tbody').append('<tr id="category_' + json.id + '" data-id=' + json.id + ' data-type=' + type + ' data-default=' + json.default + ' data-name=' + json.name + '>' + '<td class="edit_category" data-id="' + json.id + '">' + json.name + '</td>' + '<td class="edit_category" data-id="' + json.id + '">' + json.default + '</td>' + '<td>' + delete_form + '</td></tr>');
 						$('#' + type + '_errors').hide();
-						$('#' + type + '_form .category_name').val('');
-						$('#' + type + '_form .category_default').val('');
+						$('#add_' + type + '_form .category_name').val('');
+						$('#add_' + type + '_form .category_default').val('');
 					},
 					error : function(json) {
 						errors = '';
@@ -255,7 +255,7 @@
 				name = tr.attr('data-name');
 				amount = tr.attr('data-default');
 				type = tr.attr('data-type');
-				tr.html('<td colspan="3"><div id="category_' + id + '_error"></div><form action="/category/update/' + id + '" class="edit_category_form form-horizontal" data-id=' + id + ' data-name=' + name + ' data-default=' + amount + ' data-type=' + type + '>' + '<input type="hidden" name="category_id" value=' + id + '>' + '<div class="col-sm-5"><input type="text" name="name" value=' + name + ' class="form-control"></div>' + '<div class="col-sm-5"><input type="text" name="default" value=' + amount + ' class="form-control"></div>' + '<div class="col-sm-2"><button type="submit" class="edit_category_form btn btn-default"><i class="fa fa-check"></i></button></div></form></td>');
+				tr.html('<td colspan="3"><div id="category_' + id + '_error"></div><form action="/category/update/' + id + '" class="edit_category_form form-horizontal" data-id=' + id + ' data-name=' + name + ' data-default=' + amount + ' data-type=' + type + '>' + '<input type="hidden" name="category_id" value=' + id + '>' + '<div class="col-sm-5"><input type="text" name="name" value=' + name + ' class="edit_category_name form-control"></div>' + '<div class="col-sm-5"><input type="text" name="default" value=' + amount + ' class="edit_category_amount form-control"></div>' + '<div class="col-sm-2"><button type="submit" class="edit_category_form btn btn-default"><i class="fa fa-check"></i></button></div></form></td>');
 			});
 
 			$(document).on('submit', '.edit_category_form', function(e) {
@@ -303,7 +303,7 @@
 				category = tr.attr('data-category');
 				type = tr.attr('data-type');
 				select = $('#add_' + type + '_form select').clone();
-				tr.html('<td colspan="4"><div id="cashflow_' + id + '_error"></div><form action="/cashflow/update/' + id + '" class="edit_cashflow_form form-horizontal" data-id=' + id + ' data-name=' + name + ' data-amount=' + amount + ' data-type=' + type + ' data-category="' + category + '">' + '<div class="col-sm-3"><input type="text" name="name" value=' + name + ' class="form-control"></div>' + '<div id="select_' + id + '" class="col-sm-3"></div>' + '<div class="col-sm-3"><input type="text" name="amount" value=' + amount + ' class="form-control"></div>' + '<div class="col-sm-3"><button type="submit" class="edit_category_form btn btn-default"><i class="fa fa-check"></i></button></div></form></td>');
+				tr.html('<td colspan="4"><div id="cashflow_' + id + '_error"></div><form action="/cashflow/update/' + id + '" class="edit_cashflow_form form-horizontal" data-id=' + id + ' data-name=' + name + ' data-amount=' + amount + ' data-type=' + type + ' data-category="' + category + '">' + '<div class="col-sm-3"><input type="text" name="name" value=' + name + ' class="edit_cashflow_name form-control"></div>' + '<div id="select_' + id + '" class="col-sm-3"></div>' + '<div class="col-sm-3"><input type="text" name="amount" value=' + amount + ' class="form-control edit_cashflow_amount"></div>' + '<div class="col-sm-3"><button type="submit" class="edit_category_form btn btn-default"><i class="fa fa-check"></i></button></div></form></td>');
 				select.attr('id', 'select_' + id + '_edit').appendTo('#select_' + id);
 				$('#select_' + id + '_edit').val(category);
 			});
@@ -324,7 +324,7 @@
 					data : $(this).serialize(),
 					dataType : 'json',
 					success : function(json) {
-						delete_form = '<form id="delete_cashflow_' + json.cashflow.id + '" class="delete_cashflow" data-id="' + json.cashflow.id + '" data-type="' + type + '" action="/cashflow/' + json.cashflow.id + '" method="POST">' + '<input type="hidden" name="_method" value="DELETE">' + '<input type="hidden" name="budget_id" value="' + json.cashflow.budget_id + '"/>' + '<button type="submit" id="delete-cashflow-' + json.cashflow.id + '" class="delete_cashflow btn btn-xs btn-danger"><i class="fa fa-times"></i></button>' + '</form>';
+						delete_form = '<form id="delete_cashflow_' + json.cashflow.id + '" class="delete_cashflow" data-id="' + json.cashflow.id + '" data-type="' + type + '" action="/cashflow/' + json.cashflow.id + '" method="POST">' + '<input type="hidden" name="_method" value="DELETE">' + '<input type="hidden" name="budget_id" value="' + json.cashflow.budget_id + '"/>' + '<button type="submit" id="delete_cashflow_' + json.cashflow.id + '" class="delete_cashflow btn btn-xs btn-danger"><i class="fa fa-times"></i></button>' + '</form>';
 						tr.attr('data-category', json.category_id);
 						tr.attr('data-name', json.cashflow.name);
 						tr.attr('data-amount', json.cashflow.amount);

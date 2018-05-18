@@ -1,4 +1,6 @@
 /.metadata
+/config/laravel.log
+/coverage
 /node_modules
 /public/storage
 /public/hot
