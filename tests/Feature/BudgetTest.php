@@ -12,7 +12,7 @@ class BudgetTest extends TestCase
     use DatabaseTransactions;
 
     /**
-     * A basic test example.
+     * Dashboard can be displayed.
      *
      * @return void
      */

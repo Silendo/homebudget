@@ -40,5 +40,5 @@ Route::get('/tasks', 'TaskController@index') -> name('tasks');
 Route::post('/task', 'TaskController@store');
 Route::delete('/task/{task}', 'TaskController@destroy');
 
-Route::get('/auth/{provider}', 'SocialAuthController@redirectToProvider');
-Route::get('/auth/{provider}/callback', 'SocialAuthController@handleProviderCallback');
+Route::post('/report', 'BudgetReportController@sendSummary') -> name('report');
+

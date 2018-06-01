@@ -11,6 +11,10 @@
 		<p class="text-muted">
 			(od {{$user->created_at->format('d F Y')}})
 		</p>
+		<form id="send_report" action="{{url('report')}}" method="POST">
+			{{ csrf_field() }}
+			<button class="btn btn-default" type="submit" data-toggle="tooltip" data-placement="bottom" title="Raport obejmuje wszystkie wprowadzone dane.">Wyślij raport</button>
+		</form>
 		<h2>Kategorie</h2>
 		<a href="{{route('categories')}}">Zarządzaj kategoriami</a>
 		<h2>Notatki</h2>
@@ -55,5 +59,18 @@
 			</div>
 		</form>
 	</div>
+</div>
+<div id="report_modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Wysyłanie raportu</h4>
+      </div>
+      <div class="modal-body">
+        <p class="status"></p>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

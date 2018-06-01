@@ -98,6 +98,23 @@
 				}
 			});
 
+			$(document).on('submit', '#send_report', function(e) {
+				e.preventDefault();
+				$.ajax({
+					url : $(this).attr('action'),
+					type : 'POST',
+					success : function(json) {
+						$('#report_modal .status').text('Raport został wysłany. Sprawdź pocztę.');
+						$('#report_modal').modal('show');
+					},
+					error : function(json) {
+						$('#report_modal .status').text('Niestety wysyłanie raportu nie powiodło się. Spróbuj jeszcze raz.');
+						$('#report_modal').modal('show');
+					}
+				});
+
+			});
+
 			$(document).on('submit', '.delete_form', function(e) {
 
 				id = $(this).attr('data-id');

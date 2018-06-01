@@ -22,6 +22,17 @@ class BudgetRepository {
 		return $user -> budgets() -> orderBy('date', 'asc') -> paginate(5);
 	}
 
+	public function getBudgetSummary(User $user){
+		$budgetSummary = [];
+		$budgets = $user -> budgets() -> orderBy('date', 'asc')->getResults();
+		foreach($budgets as $budget){
+			$revenues = $this->getSumOfRevenues($budget->id);
+			$expenses = $this->getSumOfExpenses($budget->id);
+			$budgetSummary[] = array('date' => $budget->date, 'revenues' => $revenues, 'expenses' => $expenses);
+		}
+		return $budgetSummary;
+	}
+
 	public function createBudget(array $data) {
 		return User::find($data['id']) -> budgets() -> create(['date' => $data['date']]);
 	}
@@ -58,15 +69,15 @@ class BudgetRepository {
 		return $sumOfCashflows;
 	}
 
-	public function getSumOfRevenues($id) {
-		$this -> setBudget($id);
+	public function getSumOfRevenues($budgetId) {
+		$this -> setBudget($budgetId);
 		$revenues = $this -> getCashflowsByType($this -> budget, true);
 		return $this -> getSumOfCashflows($revenues);
 
 	}
 
-	public function getSumOfExpenses($id) {
-		$this -> setBudget($id);
+	public function getSumOfExpenses($budgetId) {
+		$this -> setBudget($budgetId);
 		$expenses = $this -> getCashflowsByType($this -> budget, false);
 		return $this -> getSumOfCashflows($expenses);
 

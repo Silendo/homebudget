@@ -55,7 +55,7 @@ class BudgetController extends Controller {
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  \app\Budget $budget
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function update(Request $request, Budget $budget) {
                 $this -> authorize('update', $budget);
@@ -89,7 +89,7 @@ class BudgetController extends Controller {
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function destroy(Request $request, Budget $budget) {
 		$this -> authorize('destroy', $budget);
