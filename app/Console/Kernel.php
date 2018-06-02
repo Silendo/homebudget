@@ -4,6 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\BudgetMonthSummary;
+use App\Repositories\BudgetRepository;
+use App\User;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +29,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+            $users = User::all();
+            $budgetRepository = new BudgetRepository();
+            $lastMonth = date('Y-m', strtotime("-1 months"));
+            foreach($users as $user) {  
+                $budgetMonthSummary = $budgetRepository->getMonthBudgetSummary($user, $lastMonth);
+                if($budgetMonthSummary){
+                    Mail::send(new BudgetMonthSummary($user, $budgetMonthSummary));
+                }
+            }
+         })->monthlyOn(1, '00:00');
     }
 
     /**

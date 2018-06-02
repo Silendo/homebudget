@@ -8,12 +8,13 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\User;
+use App\Repositories\BudgetRepository;
 
-class BudgetSummary extends Mailable
+class BudgetMonthSummary extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $budgetSummary;
+    public $budgetMonthSummary;
     public $user;
 
     /**
@@ -21,10 +22,10 @@ class BudgetSummary extends Mailable
      *
      * @return void
      */
-    public function __construct(array $budgetSummary, User $user)
+    public function __construct(User $user, $budgetMonthSummary)
     {
-        $this->budgetSummary = $budgetSummary;
         $this->user = $user;
+        $this->budgetMonthSummary = $budgetMonthSummary;
     }
 
     /**
@@ -34,8 +35,8 @@ class BudgetSummary extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.budget_summary')
-                    ->subject('homeBudget: Budget Raport')
-                    ->with(['now' => date('Y-m-d H:i:s')]);
+        return $this->to($this->user->email)
+                    ->view('mail.budget_month_summary')
+                    ->subject('homeBudget: Month Budget Raport');
     }
 }

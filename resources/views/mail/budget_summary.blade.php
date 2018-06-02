@@ -10,14 +10,14 @@
  			<tr>
  				<td>Miesiąc</td><td>Przychody</td><td>Wydatki</td><td>Saldo</td>
  			</tr>
- 			<tr>
- 				@foreach ($budgetSummary as $budget)
- 				<td>{{$budget['date']}}</td>
- 				<td>{{$budget['revenues']}}</td>
- 				<td>{{$budget['expenses']}}</td>
- 				<td>{{$budget['revenues'] - $budget['expenses']}}</td>
- 				@endforeach
- 			</tr>
+ 			@foreach ($budgetSummary as $budget)
+ 				<tr>
+ 					<td>{{$budget['date']}}</td>
+ 					<td>{{$budget['revenues']}}</td>
+ 					<td>{{$budget['expenses']}}</td>
+ 					<td>{{$budget['revenues'] - $budget['expenses']}}</td>
+ 				</tr>
+ 			@endforeach
  		</table>
  		<p>Pamiętaj, że w każdym momencie możesz edytować wprowadzone dane.</p>
  		<br/>

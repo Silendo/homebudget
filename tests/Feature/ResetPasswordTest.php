@@ -31,6 +31,7 @@ class ResetPasswordTest extends TestCase
      */
     public function testResetEmailSent()
     {
+        $this->withoutMiddleware();
         $user = factory(User::class)->create();
         $this->expectsNotification($user, ResetPasswordNotification::class);
         $response = $this->post('password/email', ['email' => $user->email]);
@@ -43,6 +44,7 @@ class ResetPasswordTest extends TestCase
      */
     public function testResetEmailNotSent()
     {
+        $this->withoutMiddleware();
         $this->doesntExpectJobs(ResetPasswordNotification::class);
         $response = $this->post('password/email', ['email' => 'invalid@example.org']);
         $response->assertStatus(302);

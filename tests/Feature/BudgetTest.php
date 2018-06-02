@@ -29,6 +29,7 @@ class BudgetTest extends TestCase
      * @return @void
      */
     public function testBudgetCanBeStored(){
+        $this->withoutMiddleware();
     	$numOfBudgets = Budget::count();
     	$user = factory(User::class)->create();
     	$response = $this->actingAs($user)->post('budget', ['date' => '2018-04']);
@@ -42,6 +43,7 @@ class BudgetTest extends TestCase
      * @return @void
      */
     public function testBudgetCanNotBeStored(){
+        $this->withoutMiddleware();
     	$user = factory(User::class)->create();
     	$response = $this->actingAs($user)->post('budget', ['date' => '']);
     	$response->assertRedirect('/'); //TODO Should be dashboard, check later

@@ -27,6 +27,7 @@ class RegisterTest extends TestCase
      */
     public function testRegistersValidUser()
     {
+        $this->withoutMiddleware();
         $user = factory(User::class)->make();
         $response = $this->post('register',[
         	'name' => $user->name,
@@ -47,6 +48,7 @@ class RegisterTest extends TestCase
      */
     public function testDoesNotRegisterInvalidUser()
     {
+        $this->withoutMiddleware();
     	$user = factory(User::class)->make();
     	$response = $this->post('register',[
     		'name' => $user->name,

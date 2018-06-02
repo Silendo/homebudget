@@ -28,7 +28,8 @@ class LoginTest extends TestCase
      */
     public function testLoginValidUser()
     {
-    	$user = factory(User::class)->create();
+    	$this->withoutMiddleware();
+        $user = factory(User::class)->create();
     	$response = $this->post('login', [
             'email' => $user->email,
             'password' => 'secret'
@@ -44,7 +45,8 @@ class LoginTest extends TestCase
      */
     public function testDoesNotLoginInvalidUser()
     {
-    	$user = factory(User::class)->create();
+    	$this->withoutMiddleware();
+        $user = factory(User::class)->create();
     	$response = $this->post('login', [
             'email' => $user->email,
             'password' => 'invalid'
@@ -60,6 +62,7 @@ class LoginTest extends TestCase
      */
     public function testLogoutAuthenticatedUser()
     {
+        $this->withoutMiddleware();
     	$user = factory(User::class)->create();
     	$response = $this->actingAs($user)->post('logout');
         //$response->assertStatus(302);

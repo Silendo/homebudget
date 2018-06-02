@@ -10,8 +10,8 @@ class BudgetRepository {
 
 	protected $categoryRepository;
 	protected $budget;
-	public function __construct(CategoryRepository $categoryRepository) {
-		$this -> categoryRepository = $categoryRepository;
+	public function __construct() {
+		$this -> categoryRepository = new CategoryRepository();
 	}
 
 	public function setBudget($id) {
@@ -23,8 +23,17 @@ class BudgetRepository {
 	}
 
 	public function getBudgetSummary(User $user){
-		$budgetSummary = [];
 		$budgets = $user -> budgets() -> orderBy('date', 'asc')->getResults();
+		return $this->prepareBudgetSummary($budgets);
+	}
+
+	public function getMonthBudgetSummary(User $user, string $date){
+		$budgets = $user -> budgets() -> where('date', 'like', $date) -> orderBy('date', 'asc')->getResults();
+		return $this->prepareBudgetSummary($budgets);
+	}
+
+	private function prepareBudgetSummary($budgets){
+		$budgetSummary = [];
 		foreach($budgets as $budget){
 			$revenues = $this->getSumOfRevenues($budget->id);
 			$expenses = $this->getSumOfExpenses($budget->id);
