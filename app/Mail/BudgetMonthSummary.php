@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use App\Repositories\BudgetRepository;
 
-class BudgetMonthSummary extends Mailable
+class BudgetMonthSummary extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -22,7 +22,7 @@ class BudgetMonthSummary extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user, $budgetMonthSummary)
+    public function __construct(array $budgetMonthSummary, User $user)
     {
         $this->user = $user;
         $this->budgetMonthSummary = $budgetMonthSummary;

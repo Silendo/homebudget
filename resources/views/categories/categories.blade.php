@@ -23,7 +23,7 @@
 <div id="{{$type}}_errors"></div>
 <form id="add_{{$type}}_form" class="add_category_form" data-type="{{$type}}" action="{{ url('category') }}" method="POST" class="form-horizontal">
 	{{ csrf_field() }}
-	@if ($type)
+	@if ($type == 'revenue')
 		<input type="hidden" name="type" value="1"/>
 	@else
 		<input type="hidden" name="type" value="0"/>

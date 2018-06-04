@@ -32,16 +32,6 @@ class BudgetRepository {
 		return $this->prepareBudgetSummary($budgets);
 	}
 
-	private function prepareBudgetSummary($budgets){
-		$budgetSummary = [];
-		foreach($budgets as $budget){
-			$revenues = $this->getSumOfRevenues($budget->id);
-			$expenses = $this->getSumOfExpenses($budget->id);
-			$budgetSummary[] = array('date' => $budget->date, 'revenues' => $revenues, 'expenses' => $expenses);
-		}
-		return $budgetSummary;
-	}
-
 	public function createBudget(array $data) {
 		return User::find($data['id']) -> budgets() -> create(['date' => $data['date']]);
 	}
@@ -96,4 +86,13 @@ class BudgetRepository {
 		$budget -> delete();
 	}
 
+	private function prepareBudgetSummary($budgets){
+		$budgetSummary = [];
+		foreach($budgets as $budget){
+			$revenues = $this->getSumOfRevenues($budget->id);
+			$expenses = $this->getSumOfExpenses($budget->id);
+			$budgetSummary[] = array('date' => $budget->date, 'revenues' => $revenues, 'expenses' => $expenses);
+		}
+		return $budgetSummary;
+	}
 }

@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 use App\Mail\BudgetMonthSummary;
 use App\Repositories\BudgetRepository;
@@ -36,10 +37,13 @@ class Kernel extends ConsoleKernel
             foreach($users as $user) {  
                 $budgetMonthSummary = $budgetRepository->getMonthBudgetSummary($user, $lastMonth);
                 if($budgetMonthSummary){
-                    Mail::send(new BudgetMonthSummary($user, $budgetMonthSummary));
+                    Mail::send(new BudgetMonthSummary($budgetMonthSummary, $user));
+                    Log::info('Mail sent to: '.$user->email.'.');
                 }
             }
          })->monthlyOn(1, '00:00');
+
+        $schedule->exec("truncate -s 0 ".env('LOG_PATH'))->weekly()->sundays('00:00');
     }
 
     /**

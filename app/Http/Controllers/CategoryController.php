@@ -31,7 +31,7 @@ class CategoryController extends Controller {
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function store(CategoryFormRequest $request) {
 		$user = $request -> user();
@@ -42,7 +42,7 @@ class CategoryController extends Controller {
 
 	/**
 	 * @param \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function update(CategoryFormRequest $request, Category $category) {
                 $this -> authorize('update', $category);
@@ -54,7 +54,7 @@ class CategoryController extends Controller {
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function destroy(Request $request, Category $category) {
 		$this -> authorize('destroy', $category);

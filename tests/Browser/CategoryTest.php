@@ -92,6 +92,9 @@ class CategoryTest extends DuskTestCase
                 ->pause(2000)
                 ->assertPathIs($categoriesPath)
                 ->assertSeeIn($categoryTableSelector, $categoryName);
+
+        $browser->visit($categoriesPath)
+                ->assertSeeIn($categoryTableSelector, $categoryName);
         });
     }
 
