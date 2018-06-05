@@ -36,8 +36,9 @@ class Kernel extends ConsoleKernel
             $lastMonth = date('Y-m', strtotime("-1 months"));
             foreach($users as $user) {  
                 $budgetMonthSummary = $budgetRepository->getMonthBudgetSummary($user, $lastMonth);
+                $budgetMonthDetails = $budgetRepository->getMonthBudgetDetails($user, $lastMonth);
                 if($budgetMonthSummary){
-                    Mail::send(new BudgetMonthSummary($budgetMonthSummary, $user));
+                    Mail::send(new BudgetMonthSummary($budgetMonthSummary, $budgetMonthDetails, $user));
                     Log::info('Mail sent to: '.$user->email.'.');
                 }
             }

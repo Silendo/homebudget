@@ -23,13 +23,19 @@ class BudgetRepository {
 	}
 
 	public function getBudgetSummary(User $user){
-		$budgets = $user -> budgets() -> orderBy('date', 'asc')->getResults();
-		return $this->prepareBudgetSummary($budgets);
+		$budgets = $user -> budgets() -> orderBy('date', 'asc') -> getResults();
+		return $this -> prepareBudgetSummary($budgets);
 	}
 
 	public function getMonthBudgetSummary(User $user, string $date){
-		$budgets = $user -> budgets() -> where('date', 'like', $date) -> orderBy('date', 'asc')->getResults();
-		return $this->prepareBudgetSummary($budgets);
+		$budgets = $user -> budgets() -> where('date', 'like', $date) -> orderBy('date', 'asc') -> getResults();
+		return $this -> prepareBudgetSummary($budgets);
+	}
+
+	public function getMonthBudgetDetails(User $user, string $date){
+		$budget = $user -> budgets() -> where('date', 'like', $date) -> orderBy('date', 'asc') -> first();
+		if($budget)
+			return ['revenues' => $this->getRevenues($budget), 'expenses' => $this->getExpenses($budget)];
 	}
 
 	public function createBudget(array $data) {
