@@ -18,7 +18,6 @@ Route::get('/', function() {
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/home', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
 
 Route::get('/dashboard', 'BudgetController@index') -> name('dashboard');
@@ -35,10 +34,6 @@ Route::delete('/category/{category}', 'CategoryController@destroy');
 Route::post('/cashflow', 'CashflowController@store') -> name('cashflow');
 Route::post('/cashflow/update/{cashflow}', 'CashflowController@update');
 Route::delete('/cashflow/{cashflow}', 'CashflowController@destroy');
-
-Route::get('/tasks', 'TaskController@index') -> name('tasks');
-Route::post('/task', 'TaskController@store');
-Route::delete('/task/{task}', 'TaskController@destroy');
 
 Route::post('/report', 'BudgetReportController@sendSummary') -> name('report');
 

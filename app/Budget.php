@@ -19,7 +19,6 @@ class Budget extends Model {
 
 	public function getDateAttribute($value) {
 		return Carbon::parse($value) -> format('F Y');
-		//accessor
 	}
 
 }

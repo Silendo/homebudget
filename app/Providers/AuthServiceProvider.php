@@ -13,7 +13,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Task' => 'App\Policies\TaskPolicy',
         'App\Budget' => 'App\Policies\BudgetPolicy',
         'App\Category' => 'App\Policies\CategoryPolicy',
         'App\Cashflow' => 'App\Policies\CashflowPolicy',

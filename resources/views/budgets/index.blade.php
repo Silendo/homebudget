@@ -17,8 +17,6 @@
 		</form>
 		<h2>Kategorie</h2>
 		<a href="{{route('categories')}}">Zarządzaj kategoriami</a>
-		<h2>Notatki</h2>
-		<a href="{{route('tasks')}}">Zarządzaj notatkami</a>
 	</div>
 	<div class="col-sm-5">
 		<h2>Budżety</h2>

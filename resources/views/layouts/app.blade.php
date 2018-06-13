@@ -66,9 +66,6 @@
 								<li>
 									<a href="{{ url('/categories') }}"><i class="fa fa-btn fa-tasks"></i>Kategorie</a>
 								</li>
-								<li>
-									<a href="{{ url('/tasks') }}"><i class="fa fa-btn fa-newspaper-o"></i>Notatki</a>
-								</li>
 								<li role="separator" class="divider"></li>
 								<li>
 									<a href="{{ url('/about') }}"><i class="fa fa-btn fa-book"></i>O aplikacji</a>
