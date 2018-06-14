@@ -7,6 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Logowanie</div>
                 <div class="panel-body">
+                        @if ($errors->has('socialite'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('socialite') }}
+                            </div>
+                        @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
@@ -60,6 +65,9 @@
                             </div>
                         </div>
                     </form>
+                    <div class="col-md-8 col-md-offset-4">
+                        <a class="btn btn-default" href="{{ route('google') }}">Zaloguj przez Google</a>
+                    </div>
                 </div>
             </div>
         </div>

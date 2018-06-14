@@ -7,6 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Rejestracja</div>
                 <div class="panel-body">
+                        @if ($errors->has('socialite'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('socialite') }}
+                            </div>
+                        @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
@@ -68,6 +73,9 @@
                             </div>	
                         </div>
                     </form>
+                    <div class="col-md-6 col-md-offset-4">
+                        <a class="btn btn-default" href="{{ route('google') }}">Zarejestruj przez Google</a>
+                    </div>
                 </div>
             </div>
         </div>

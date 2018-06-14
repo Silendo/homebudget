@@ -11,6 +11,7 @@
         "facebook/webdriver": "^1.5",
         "laravel/dusk": "^3.0",
         "laravel/framework": "5.6.*",
+        "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0"
     },
     "require-dev": {

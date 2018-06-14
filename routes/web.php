@@ -37,3 +37,5 @@ Route::delete('/cashflow/{cashflow}', 'CashflowController@destroy');
 
 Route::post('/report', 'BudgetReportController@sendSummary') -> name('report');
 
+Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle')->name('google');
+Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');

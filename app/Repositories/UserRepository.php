@@ -10,8 +10,12 @@ class UserRepository {
 		$this -> user = $user;
 	}
 
-	public function fund($id) {
+	public function find($id) {
 		return $this -> user -> find($id);
+	}
+
+	public function createGoogleUser($user){
+		return User::create(['name' =>$user->getName(), 'email' => $user->getEmail(), 'google_id' => $user->getId()]);
 	}
 
 }
