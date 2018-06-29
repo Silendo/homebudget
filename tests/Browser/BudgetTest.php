@@ -21,7 +21,7 @@ class BudgetTest extends DuskTestCase
         $browser->loginAs($user)
                 ->visit($budgetPath)
                 ->click('.edit_budget')
-                ->value('#budget-date', '2018-04')
+                ->value('#budget_date', '2018-04')
                 ->click('.edit_budget_form button')
                 ->waitUntilMissing('.edit_budget_form')
                 ->assertPathIs($budgetPath)
@@ -38,7 +38,7 @@ class BudgetTest extends DuskTestCase
     {
         $user = factory(User::class)->create();
         $budget = factory(Budget::class)->create(['user_id' => $user->id]);
-        $selector = '#delete_form_'.$budget->id.' button';
+        $selector = '#delete_budget_'.$budget->id.' button';
         $this->browse(function ($browser) use ($user, $selector) {
         $browser->loginAs($user)
                 ->visit('/dashboard')

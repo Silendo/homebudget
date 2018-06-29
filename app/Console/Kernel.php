@@ -34,12 +34,14 @@ class Kernel extends ConsoleKernel
             $users = User::all();
             $budgetRepository = new BudgetRepository();
             $lastMonth = date('Y-m', strtotime("-1 months"));
-            foreach($users as $user) {  
-                $budgetMonthSummary = $budgetRepository->getMonthBudgetSummary($user, $lastMonth);
-                $budgetMonthDetails = $budgetRepository->getMonthBudgetDetails($user, $lastMonth);
-                if($budgetMonthSummary){
-                    Mail::send(new BudgetMonthSummary($budgetMonthSummary, $budgetMonthDetails, $user));
-                    Log::info('Mail sent to: '.$user->email.'.');
+            foreach($users as $user) {
+                if($user->month_report){
+                    $budgetMonthSummary = $budgetRepository->getMonthBudgetSummary($user, $lastMonth);
+                    $budgetMonthDetails = $budgetRepository->getMonthBudgetDetails($user, $lastMonth);
+                    if($budgetMonthSummary){
+                        Mail::send(new BudgetMonthSummary($budgetMonthSummary, $budgetMonthDetails, $user));
+                        Log::info('Mail sent to: '.$user->email.'.');
+                    }
                 }
             }
          })->monthlyOn(1, '00:00');

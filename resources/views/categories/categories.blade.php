@@ -5,11 +5,11 @@
 	<tbody>
 		@if(isset($categories))
 		@foreach ($categories as $category)
-		<tr id="category_{{$category->id}}" data-name="{{$category->name}}" data-default="{{$category->default}}" data-type="{{$type}}">
-			<td class="edit_category" data-id="{{$category->id}}">{{$category->name}}</td>
-			<td class="edit_category" data-id="{{$category->id}}">{{$category->default}}</td>
+		<tr id="category_{{$category->id}}" data-id="{{$category->id}}" data-name="{{$category->name}}" data-default="{{$category->default}}" data-type="{{$type}}">
+			<td class="edit_category">{{$category->name}}</td>
+			<td class="edit_category">{{$category->default}}</td>
 			<td>
-			<form id="delete_category_{{$category->id}}" class="delete_category" data-id="{{$category->id}}" data-type="{{$type}}" action="{{url('category/' . $category->id)}}" method="POST">
+			<form id="delete_category_{{$category->id}}" class="delete_category" action="{{url('category/' . $category->id)}}" method="POST">
 				{{ method_field('DELETE') }}
 				<button type="submit" id="delete-category-{{ $category->id }}" class="delete_category btn btn-xs btn-danger">
 					<i class="fa fa-times"></i>

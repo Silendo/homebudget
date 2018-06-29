@@ -39,3 +39,6 @@ Route::post('/report', 'BudgetReportController@sendSummary') -> name('report');
 
 Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle')->name('google');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
+
+Route::get('/profile', 'UserController@show') -> name('profile');
+Route::post('/profile/update', 'UserController@update');

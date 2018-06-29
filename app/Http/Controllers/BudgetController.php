@@ -53,12 +53,12 @@ class BudgetController extends Controller {
 	/**
 	 * Update a resource in storage.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Http\Requests\BudgetFormRequest  $request
 	 * @param  \app\Budget $budget
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function update(Request $request, Budget $budget) {
-                $this -> authorize('update', $budget);
+	public function update(BudgetFormRequest $request, Budget $budget) {
+        $this -> authorize('update', $budget);
 		$budget -> date = $request -> input('date');
 		$budget -> save();
 		return response() -> json(['datetext' => $budget -> date, 'date' => $budget -> getOriginal('date')]);

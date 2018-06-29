@@ -3,20 +3,15 @@
 @section('content')
 <div class="container">
 	<div class="col-sm-offset-2 col-sm-3">
-		<h2>Mój profil</h2>
-		<img src="http://www.gravatar.com/avatar/<?php echo md5($user->email) ?>" class="img-circle" style="display:block;margin-bottom:20px;" height="80px" width="80px"/>
-		<p>
-			<a href="mailto:{{$user->email}}">{{$user->name}}</a>
-		</p>
-		<p class="text-muted">
-			(od {{$user->created_at->format('d F Y')}})
-		</p>
+		<h2>Profil</h2>
+		<a href="{{route('profile')}}">Zarządzaj ustawieniami</a>
+		<h2>Kategorie</h2>
+		<a href="{{route('categories')}}">Zarządzaj kategoriami</a>
+		<h2>Raporty</h2>
 		<form id="send_report" action="{{url('report')}}" method="POST">
 			{{ csrf_field() }}
 			<button class="btn btn-default" type="submit" data-toggle="tooltip" data-placement="bottom" title="Raport obejmuje wszystkie wprowadzone dane.">Wyślij raport</button>
 		</form>
-		<h2>Kategorie</h2>
-		<a href="{{route('categories')}}">Zarządzaj kategoriami</a>
 	</div>
 	<div class="col-sm-5">
 		<h2>Budżety</h2>
@@ -28,10 +23,10 @@
 			</thead>
 			<tbody>
 				@foreach ($budgets as $budget)
-				<tr id="delete_form_{{$budget->id}}">
+				<tr>
 					<td><a href="{{route('budget',['id'=>$budget->id])}}">{{$budget->date}}</a></td>
 					<td>
-					<form class="delete_form" data-id="{{ $budget->id }}" action="{{url('budget/' . $budget->id)}}" method="POST">
+					<form id="delete_budget_{{$budget->id}}" class="delete_budget_form" data-id="{{ $budget->id }}" action="{{url('budget/' . $budget->id)}}" method="POST">
 						{{ csrf_field() }}
 						{{ method_field('DELETE') }}
 						<button type="submit"  class="btn btn-xs btn-danger">

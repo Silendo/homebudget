@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	<h2 id="budget_title" class="text-center">Budżet dla <span data-id="{{$budget->id}}" data-date="{{$date}}" data-datetext="{{$budget->date}}" class="edit_budget">{{$budget->date}}</span></h2>
+	<h2 id="budget_title" class="text-center">Budżet dla <span data-id="{{$budget->id}}" data-date="{{$date}}" class="edit_budget">{{$budget->date}}</span></h2>
 	<div class="row">
 		<div class="col-sm-offset-1 col-sm-5">
 			<h3>Przychody</h3>
