@@ -52,7 +52,7 @@
 
 							<ul class="dropdown-menu" role="menu">
 								<li>
-									<a href="{{ url('/user') }}"><i class="fa fa-btn fa-money"></i>Budżet</a>
+									<a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-money"></i>Budżety</a>
 								</li>
 								<li>
 									<a href="{{ url('/categories') }}"><i class="fa fa-btn fa-tasks"></i>Kategorie</a>

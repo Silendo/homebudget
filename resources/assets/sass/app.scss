@@ -8,3 +8,14 @@ nav.navbar.navbar-default {
 	background-color: white;
 	border-radius: 0px;
 }
+.edit_item:hover {
+	background-color: #eee;
+	cursor:pointer;
+}
+#back_to {
+	display: block;
+	margin: 50px 0;
+}
+.form-inline {
+	display: inline;
+}

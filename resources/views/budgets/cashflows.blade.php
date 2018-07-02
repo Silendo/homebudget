@@ -8,10 +8,10 @@
 	</thead>
 	<tbody>
 		@foreach ($cashflows as $cashflow)
-		<tr id="cashflow_{{$cashflow->id}}" data-id="{{$cashflow->id}}" data-type="{{$type}}" data-category="{{$cashflow->getOriginal('category_id')}}" data-name="{{$cashflow->name}}" data-amount="{{$cashflow->amount}}">
-			<td class="edit_cashflow">{{$cashflow->name}}</td>
-			<td class="edit_cashflow">{{$cashflow->category_id}}</td>
-			<td class="edit_cashflow">{{$cashflow->amount}}</td>
+		<tr id="cashflow_{{$cashflow->id}}" data-id="{{$cashflow->id}}" data-type="{{$type}}" data-category="{{$cashflow->category_id}}" data-categoryid="{{$cashflow->getOriginal('category_id')}}"  data-name="{{$cashflow->name}}" data-amount="{{$cashflow->amount}}" data-budgetid="{{ $budget->id }}">
+			<td class="edit_cashflow edit_item" title="Edit">{{$cashflow->name}}</td>
+			<td class="edit_cashflow edit_item" title="Edit">{{$cashflow->category_id}}</td>
+			<td class="edit_cashflow edit_item" title="Edit">{{$cashflow->amount}}</td>
 			<td>
 			<form id="delete_cashflow_{{$cashflow->id}}" class="delete_cashflow" action="{{url('cashflow/' . $cashflow->id)}}" method="POST">
 				{{ csrf_field() }}
@@ -25,7 +25,6 @@
 		@endforeach
 	</tbody>
 </table>
-<div id="{{$type}}_errors"></div>
 <form id="add_{{$type}}_form" class="add_cashflow_form" data-type="{{$type}}" action="{{ url('cashflow') }}" method="POST" class="form-horizontal">
 	{{ csrf_field() }}
 	<input type="hidden" name="budget_id" value="{{$budget->id}}"/>
@@ -40,10 +39,7 @@
 		</select>
 	</div>
 	<div class="col-sm-3">
-		<input id="{{$type}}_amount" class="cashflow_amount form-control" type="text" name="amount" placeholder="PLN" id="cashflow_amount" value="
-		@isset($categories[0]) 
-			{{$categories[0]->default}}
-		@endisset">
+		<input id="{{$type}}_amount" class="cashflow_amount form-control" type="text" name="amount" placeholder="PLN" id="cashflow_amount" value="@isset($categories[0]){{$categories[0]->default}}@endisset">
 	</div>
 	<div class="col-sm-3">
 		@if($type=='revenue')

@@ -17,6 +17,14 @@ use App\Repositories\BudgetRepository;
 class CashflowController extends Controller {
 	protected $cashflowRepository;
 	protected $budgetRepository;
+
+	/**
+	* Create a new controller instance.
+	*
+	* @param \app\Repositories\CashflowRepository $cashflowRepository
+	* @param \app\Repositories\BudgetRepository $budgetRepository
+	* @return void
+	*/
 	public function __construct(CashflowRepository $cashflowRepository, BudgetRepository $budgetRepository) {
 		$this -> cashflowRepository = $cashflowRepository;
 		$this -> budgetRepository = $budgetRepository;
@@ -25,35 +33,41 @@ class CashflowController extends Controller {
 	/**
 	 * Create new cashflow.
 	 *
-	 * @param Request $request
-	 * @return \Illuminate\Http\Response
+	 * @param \app\Http\Requests\CashflowFormRequest $request
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function store(CashflowFormRequest $request) {
 		$cashflow = $this -> cashflowRepository -> createCashflow($request -> all());
-		$cashflow = Cashflow::find($cashflow -> id);
+		$category = Category::find($cashflow -> getOriginal('category_id'));
 		$sumOfRevenues = $this -> budgetRepository -> getSumOfRevenues($cashflow -> budget_id);
 		$sumOfExpenses = $this -> budgetRepository -> getSumOfExpenses($cashflow -> budget_id);
-		return response() -> json(['cashflow' => $cashflow, 'category_id' => $cashflow -> getOriginal('category_id'), 'revenues_summary' => $sumOfRevenues, 'expenses_summary' => $sumOfExpenses]);
+		return response() -> json(['cashflow' => $cashflow, 'category' => $category, 'revenues_summary' => $sumOfRevenues, 'expenses_summary' => $sumOfExpenses]);
 	}
 
 	/**
+	 * Update a resource in storage.
 	 *
+	 * @param  \app\Http\Requests\CashflowFormRequest $request
+	 * @param  \app\Cashflow $cashflow
+	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function update(CashflowFormRequest $request, Cashflow $cashflow) {
-                $this->authorize('update',$cashflow);
+		$this->authorize('update', $cashflow);
 		$cashflow -> name = $request -> name;
 		$cashflow -> category_id = $request -> category_id;
 		$cashflow -> amount = $request -> amount;
 		$cashflow -> save();
+		$category = Category::find($cashflow -> getOriginal('category_id'));
 		$sumOfRevenues = $this -> budgetRepository -> getSumOfRevenues($cashflow -> budget_id);
 		$sumOfExpenses = $this -> budgetRepository -> getSumOfExpenses($cashflow -> budget_id);
-		return response() -> json(['cashflow' => $cashflow, 'category_id' => $cashflow -> getOriginal('category_id'), 'revenues_summary' => $sumOfRevenues, 'expenses_summary' => $sumOfExpenses]);
+		return response() -> json(['cashflow' => $cashflow, 'category' => $category, 'revenues_summary' => $sumOfRevenues, 'expenses_summary' => $sumOfExpenses]);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Cashflow $cashflow
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Request $request, Cashflow $cashflow) {
@@ -62,6 +76,6 @@ class CashflowController extends Controller {
 		$sumOfRevenues = $this -> budgetRepository -> getSumOfRevenues($cashflow -> budget_id);
 		$sumOfExpenses = $this -> budgetRepository -> getSumOfExpenses($cashflow -> budget_id);
 		return response() -> json(['revenues_summary' => $sumOfRevenues, 'expenses_summary' => $sumOfExpenses]);
-}
+	}
 
 }

@@ -6,8 +6,8 @@
 		@if(isset($categories))
 		@foreach ($categories as $category)
 		<tr id="category_{{$category->id}}" data-id="{{$category->id}}" data-name="{{$category->name}}" data-default="{{$category->default}}" data-type="{{$type}}">
-			<td class="edit_category">{{$category->name}}</td>
-			<td class="edit_category">{{$category->default}}</td>
+			<td class="edit_category edit_item" title="Edit">{{$category->name}}</td>
+			<td class="edit_category edit_item" title="Edit">{{$category->default}}</td>
 			<td>
 			<form id="delete_category_{{$category->id}}" class="delete_category" action="{{url('category/' . $category->id)}}" method="POST">
 				{{ method_field('DELETE') }}
@@ -20,7 +20,6 @@
 		@endif
 	</tbody>
 </table>
-<div id="{{$type}}_errors"></div>
 <form id="add_{{$type}}_form" class="add_category_form" data-type="{{$type}}" action="{{ url('category') }}" method="POST" class="form-horizontal">
 	{{ csrf_field() }}
 	@if ($type == 'revenue')

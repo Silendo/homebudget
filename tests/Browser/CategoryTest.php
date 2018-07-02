@@ -39,15 +39,15 @@ class CategoryTest extends DuskTestCase
         $this->browse(function ($browser) use ($user, $category) {
             $categoriesPath = '/categories';
             $categorySelector = '#category_'.$category->id;
-            $newCategoryAmount = 5000;
+            $newCategoryDefault = 5000;
         $browser->loginAs($user)
                 ->visit($categoriesPath)
                 ->click($categorySelector)
-                ->value($categorySelector.' input.edit_category_amount', $newCategoryAmount)
+                ->value($categorySelector.' input.edit_category_default', $newCategoryDefault)
                 ->click($categorySelector.' button')
                 ->waitUntilMissing($categorySelector.' button.edit_category_form')
                 ->assertPathIs($categoriesPath)
-                ->assertSeeIn($categorySelector, $newCategoryAmount);
+                ->assertSeeIn($categorySelector, $newCategoryDefault);
         });
     }
 

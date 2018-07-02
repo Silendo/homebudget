@@ -19,6 +19,8 @@ class BudgetController extends Controller {
 	/**
 	 * Create a new controller instance.
 	 *
+	 * @param \app\Repositories\BudgetRepository $budgetRepository
+	 * @param \app\Repositories\CategoryRepository $categoryRepository
 	 * @return void
 	 */
 	public function __construct(BudgetRepository $budgetRepository, CategoryRepository $categoryRepository) {
@@ -41,7 +43,7 @@ class BudgetController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Http\Requests\BudgetFormRequest  $request
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(BudgetFormRequest $request) {
@@ -67,7 +69,8 @@ class BudgetController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Budget $budget
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Request $request, Budget $budget) {
@@ -88,7 +91,8 @@ class BudgetController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Budget $budget
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function destroy(Request $request, Budget $budget) {

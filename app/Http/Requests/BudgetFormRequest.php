@@ -20,7 +20,7 @@ class BudgetFormRequest extends FormRequest {
 	 * @return array
 	 */
 	public function rules() {
-		return ['date' => 'required|max:255|unique:budgets,date,NULL,id,user_id,' . $this -> user() -> id, ];
+		return ['date' => 'required|max:255|unique:budgets,date,' . $this->id . ',id,user_id,' . $this -> user() -> id, ];
 	}
 
 }

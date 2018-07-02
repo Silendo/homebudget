@@ -32,7 +32,7 @@ class UserController extends Controller {
 	* @param  \Illuminate\Http\Request  $request
 	* @return \Illuminate\Http\JsonResponse
 	*/
-	public function update(Request $request){
+	public function update(Request $request) {
 		$user = Auth::user();
 		$value = '';
 		if($request->has('name')) {
@@ -44,7 +44,7 @@ class UserController extends Controller {
 		}
 		if($request->has('email')){
 			$this->validate($request, [
-				'email' => 'required|email|unique:users',
+				'email' => 'required|email|unique:users,email,' . $user->id,
         	]);
 			$user->email = $request->email;
 			$value = $request->email;

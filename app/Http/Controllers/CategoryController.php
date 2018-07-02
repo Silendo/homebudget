@@ -10,11 +10,20 @@ use App\Http\Requests\CategoryFormRequest;
 
 class CategoryController extends Controller {
 	protected $category;
+
+	/**
+	* Create a new controller instance.
+	*
+	* @param \app\Repositories\CategoryRepository $categoryRepository
+	* @return void
+	*/
 	public function __construct(CategoryRepository $categoryRepository) {
 		$this -> categoryRepository = $categoryRepository;
 	}
 
 	/**
+	 * Display list of categories.
+	 *
 	 * @param \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
@@ -30,7 +39,7 @@ class CategoryController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Http\Requests\CategoryFormRequest $request
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function store(CategoryFormRequest $request) {
@@ -41,19 +50,23 @@ class CategoryController extends Controller {
 	}
 
 	/**
-	 * @param \Illuminate\Http\Request  $request
+	 * Update a resource in storage.
+	 *
+	 * @param  \app\Http\Requests\BudgetFormRequest $request
+	 * @param  \app\Category $category
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function update(CategoryFormRequest $request, Category $category) {
                 $this -> authorize('update', $category);
 		$category = $this -> categoryRepository -> updateCategory($category -> id, $request -> all());
-		return response() -> json(['name' => $category -> name, 'amount' => $category -> default]);
+		return response() -> json(['name' => $category -> name, 'default' => $category -> default]);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \app\Category $category
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function destroy(Request $request, Category $category) {
@@ -61,5 +74,4 @@ class CategoryController extends Controller {
 		$this -> categoryRepository -> deleteCategory($category);
 		return response() -> json();
 	}
-
 }
